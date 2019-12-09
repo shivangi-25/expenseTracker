@@ -1,0 +1,222 @@
+{
+	"info": {
+		"_postman_id": "f1a1ccf9-8936-484e-910f-06b8e62e465c",
+		"name": "Mytheresa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Validating the GET API JSON Response",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ccb06d69-2a1e-4f4b-ad1a-496b29d6e9fd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"",
+							"});",
+							"",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     ",
+							"     pm.response.to.be.ok; ",
+							"     ",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json; ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify the count of recipies is 30\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.count).to.eql(30);",
+							"});",
+							"pm.test(\"Verify if the JSON body contains publisher\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"publisher\");",
+							"});",
+							"",
+							"pm.test(\"Verify if the JSON body contains f2f_url\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"f2f_url\");",
+							"});",
+							"",
+							"pm.test(\"Verify if the JSON body contains title\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"title\");",
+							"});",
+							"",
+							"pm.test(\"Verify if the JSON body contains source_url\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"source_url\");",
+							"});",
+							"",
+							"pm.test(\"Verify if the JSON body contains Recipie ID\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"recipe_id\");",
+							"});",
+							"pm.test(\"Verify if the JSON body contains image_url\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"image_url\");",
+							"});",
+							"pm.test(\"Verify if the JSON body contains social_rank\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"social_rank\");",
+							"});",
+							"pm.test(\"Verify if the JSON body contains publisher_url\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"publisher_url\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.food2fork.com/api/search?key=e676ea4152b2077f7e7bef634e232fff",
+					"protocol": "https",
+					"host": [
+						"www",
+						"food2fork",
+						"com"
+					],
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "e676ea4152b2077f7e7bef634e232fff"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search query on API with a different valid title value and same key value",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.food2fork.com/api/search?q=Jalapeno Popper Grilled Cheese Sandwich&key=e676ea4152b2077f7e7bef634e232fff\n\n",
+					"protocol": "https",
+					"host": [
+						"www",
+						"food2fork",
+						"com"
+					],
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Jalapeno Popper Grilled Cheese Sandwich"
+						},
+						{
+							"key": "key",
+							"value": "e676ea4152b2077f7e7bef634e232fff\n\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search query on API with an invalid title value and same key value",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.food2fork.com/api/search?q=Invalid&key=e676ea4152b2077f7e7bef634e232fff",
+					"protocol": "https",
+					"host": [
+						"www",
+						"food2fork",
+						"com"
+					],
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Invalid"
+						},
+						{
+							"key": "key",
+							"value": "e676ea4152b2077f7e7bef634e232fff"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search query on API with valid title but invalid key",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.food2fork.com/api/search?q=cookie monster cupcakes&key=invalid",
+					"protocol": "https",
+					"host": [
+						"www",
+						"food2fork",
+						"com"
+					],
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "cookie monster cupcakes"
+						},
+						{
+							"key": "key",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search query on API with both invalid values",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.food2fork.com/api/search?q=invalid&key=invalid",
+					"protocol": "https",
+					"host": [
+						"www",
+						"food2fork",
+						"com"
+					],
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "invalid"
+						},
+						{
+							"key": "key",
+							"value": "invalid"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
